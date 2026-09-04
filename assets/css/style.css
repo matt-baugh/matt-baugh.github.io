@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -178,6 +179,7 @@ a:hover {
 
 .section {
   padding: 1.4rem 0 2.2rem;
+  scroll-margin-top: 4.5rem;
 }
 
 .section h2 {
