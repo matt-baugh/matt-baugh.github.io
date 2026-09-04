@@ -1,0 +1,373 @@
+:root {
+  --bg: #f7f4ee;
+  --bg-elev: #fffdf8;
+  --ink: #1c1915;
+  --muted: #5c564c;
+  --line: #ddd6c8;
+  --accent: #1f4d4a;
+  --accent-soft: #e4efe9;
+  --shadow: 0 12px 40px rgba(47, 40, 30, 0.06);
+  --radius: 14px;
+  --serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --sans: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --wrap: 46rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #efe7d6 0%, transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, #e4ebe4 0%, transparent 50%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: #163834;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  z-index: 20;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+.wrap {
+  width: min(var(--wrap), calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.6rem;
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: 1.15rem;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--ink);
+}
+
+.hero {
+  padding: 5.2rem 0 2.4rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.85rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 4.1rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.tagline {
+  margin: 1rem 0 0;
+  max-width: 28rem;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.8rem;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem 0.4rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.social a:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  background: var(--accent-soft);
+}
+
+.social svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.section {
+  padding: 1.4rem 0 2.2rem;
+}
+
+.section h2 {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section h3 {
+  margin: 1.8rem 0 0.7rem;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.section p {
+  margin: 0 0 1rem;
+  color: #2d2923;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.text-link {
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.pubs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.pub {
+  display: grid;
+  grid-template-columns: 7.4rem 1fr;
+  gap: 1rem;
+  padding: 1.15rem 1.15rem 1.2rem;
+  background: var(--bg-elev);
+  border: 1px solid color-mix(in srgb, var(--line) 80%, #fff);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.pub-badge {
+  align-self: start;
+  width: fit-content;
+  margin-top: 0.2rem;
+  padding: 0.28rem 0.5rem;
+  border-radius: 6px;
+  background: var(--badge, var(--accent));
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.pub-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.pub-authors,
+.pub-venue {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+}
+
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 0.22rem 0.7rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn[aria-expanded="true"] {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.bibtex {
+  position: relative;
+  margin-top: 0.8rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 10px;
+  background: #1c1915;
+  color: #f4efe6;
+  overflow: auto;
+}
+
+.bibtex pre {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.copy-bib {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: #3b342c;
+  color: #fff;
+  padding: 0.2rem 0.55rem;
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.copy-bib:hover {
+  background: #52493e;
+}
+
+.contact {
+  padding-bottom: 3.5rem;
+}
+
+.site-footer {
+  padding: 1.4rem 0 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .pub {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .hero {
+    padding-top: 3.4rem;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem 0;
+    gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
