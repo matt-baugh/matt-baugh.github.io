@@ -218,23 +218,6 @@ a:hover {
   color: #2d2923;
 }
 
-.about {
-  display: grid;
-  grid-template-columns: 4.4rem minmax(0, 1fr);
-  gap: 1.35rem;
-  align-items: start;
-}
-
-.about-crest {
-  width: 4.4rem;
-  height: auto;
-  margin-top: 0.35rem;
-}
-
-.about p:last-child {
-  margin-bottom: 0;
-}
-
 .section-heading {
   display: flex;
   align-items: baseline;
@@ -454,8 +437,7 @@ a:hover {
 
 @media (max-width: 720px) {
   .pub,
-  .job,
-  .about {
+  .job {
     grid-template-columns: 1fr;
     gap: 0.55rem;
   }
@@ -474,10 +456,6 @@ a:hover {
     width: 8.6rem;
     height: 8.6rem;
     order: -1;
-  }
-
-  .about-crest {
-    width: 3.4rem;
   }
 
   .header-inner {
