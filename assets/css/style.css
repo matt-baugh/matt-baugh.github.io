@@ -11,7 +11,7 @@
   --serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
   --sans: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --wrap: 46rem;
+  --wrap: 50rem;
 }
 
 *,
@@ -115,7 +115,23 @@ a:hover {
 }
 
 .hero {
-  padding: 5.2rem 0 2.4rem;
+  padding: 4.6rem 0 2.2rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2.4rem 3rem;
+  align-items: center;
+}
+
+.portrait {
+  width: 11.5rem;
+  height: 11.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--line) 70%, transparent);
 }
 
 .eyebrow {
@@ -136,12 +152,12 @@ a:hover {
   line-height: 1.05;
 }
 
+.lede,
 .tagline {
-  margin: 1rem 0 0;
-  max-width: 28rem;
+  margin: 0.85rem 0 0;
   color: var(--muted);
   font-family: var(--serif);
-  font-size: 1.35rem;
+  font-size: 1.22rem;
   font-style: italic;
   font-weight: 500;
 }
@@ -202,6 +218,23 @@ a:hover {
   color: #2d2923;
 }
 
+.about {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr);
+  gap: 1.35rem;
+  align-items: start;
+}
+
+.about-crest {
+  width: 4.4rem;
+  height: auto;
+  margin-top: 0.35rem;
+}
+
+.about p:last-child {
+  margin-bottom: 0;
+}
+
 .section-heading {
   display: flex;
   align-items: baseline;
@@ -230,7 +263,7 @@ a:hover {
 
 .job {
   display: grid;
-  grid-template-columns: 5.4rem 1fr;
+  grid-template-columns: 3.7rem 1fr;
   gap: 1rem;
   padding: 1.15rem 1.15rem 1.2rem;
   background: var(--bg-elev);
@@ -239,18 +272,22 @@ a:hover {
   box-shadow: var(--shadow);
 }
 
-.job-mark {
+.job-logo {
   align-self: start;
-  width: fit-content;
-  margin-top: 0.2rem;
-  padding: 0.28rem 0.5rem;
-  border-radius: 6px;
-  background: var(--mark, var(--accent));
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  width: 3.7rem;
+  height: 3.7rem;
+  display: grid;
+  place-items: center;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--line) 75%, #fff);
+  border-radius: 12px;
+}
+
+.job-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .job-top {
@@ -417,13 +454,30 @@ a:hover {
 
 @media (max-width: 720px) {
   .pub,
-  .job {
+  .job,
+  .about {
     grid-template-columns: 1fr;
     gap: 0.55rem;
   }
 
   .hero {
-    padding-top: 3.4rem;
+    padding-top: 3.2rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 1.5rem;
+  }
+
+  .portrait {
+    width: 8.6rem;
+    height: 8.6rem;
+    order: -1;
+  }
+
+  .about-crest {
+    width: 3.4rem;
   }
 
   .header-inner {
