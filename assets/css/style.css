@@ -41,6 +41,7 @@ body {
 img,
 svg {
   display: block;
+  max-width: 100%;
 }
 
 a {
@@ -662,6 +663,8 @@ a:hover {
 
 .ct-view {
   margin: 1.6rem 0 0;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .secret-page .ct-view h3 {
@@ -685,8 +688,10 @@ a:hover {
 
 .grid-frame {
   display: block;
+  box-sizing: border-box;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   overflow: hidden;
   background: #111;
   border-radius: var(--radius);
@@ -695,9 +700,11 @@ a:hover {
 
 .grid-frame img {
   display: block;
+  box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   height: auto;
+  aspect-ratio: 5120 / 5400;
 }
 
 #views {
