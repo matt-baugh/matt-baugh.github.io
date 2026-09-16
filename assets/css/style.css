@@ -507,7 +507,13 @@ a:hover {
 }
 
 .secret-hero {
-  padding-bottom: 0.4rem;
+  padding-top: 2.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.secret-page .section {
+  padding-top: 0.7rem;
+  padding-bottom: 1.2rem;
 }
 
 .finding-pills {
@@ -589,8 +595,8 @@ a:hover {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  height: min(78vh, 46rem);
-  min-height: 22rem;
+  height: min(62vh, 40rem);
+  min-height: 20rem;
 }
 
 #ct-canvas {
