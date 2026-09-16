@@ -804,7 +804,7 @@ a:hover {
   display: grid;
   place-items: center;
   padding: 1.5rem;
-  background: color-mix(in srgb, #1c1915 72%, transparent);
+  background: color-mix(in srgb, #1c1915 78%, transparent);
   cursor: pointer;
 }
 
@@ -812,9 +812,13 @@ a:hover {
   display: none;
 }
 
+.congrats-card {
+  width: min(52rem, 100%);
+  cursor: default;
+}
+
 .congrats p {
-  margin: 0;
-  max-width: 22rem;
+  margin: 0 0 1rem;
   text-align: center;
   font-family: var(--serif);
   font-size: clamp(1.8rem, 4vw, 2.6rem);
@@ -822,6 +826,15 @@ a:hover {
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: #f7f4ee;
+}
+
+.congrats video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 @media (prefers-reduced-motion: reduce) {
