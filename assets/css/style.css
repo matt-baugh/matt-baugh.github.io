@@ -534,39 +534,17 @@ a:hover {
 }
 
 .view-caption {
-  margin: 0.7rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-.view-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin: 1.1rem 0 1rem;
+.ct-view {
+  margin: 1.6rem 0 0;
 }
 
-.view-tab {
-  appearance: none;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg-elev);
-  color: var(--ink);
-  padding: 0.32rem 0.85rem;
-  font: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.view-tab:hover,
-.view-tab[aria-selected="true"] {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.view-panel[hidden] {
-  display: none;
+.secret-page .ct-view h3 {
+  margin: 0 0 0.7rem;
 }
 
 .cine {
@@ -585,15 +563,19 @@ a:hover {
 }
 
 .grid-frame {
-  overflow: auto;
-  max-height: min(78vh, 52rem);
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   background: #111;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
 .grid-frame img {
+  display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
