@@ -649,6 +649,57 @@ a:hover {
   }
 }
 
+.extra-heading {
+  margin-top: 2.4rem;
+}
+
+.view-caption {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.ct-view {
+  margin: 1.6rem 0 0;
+}
+
+.secret-page .ct-view h3 {
+  margin: 0 0 0.7rem;
+}
+
+.cine {
+  display: grid;
+  place-items: center;
+  padding: 0.9rem;
+  background: #111;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.cine video {
+  width: min(100%, 36rem);
+  height: auto;
+  background: #000;
+}
+
+.grid-frame {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: #111;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.grid-frame img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
 #views {
   padding-bottom: 3.5rem;
 }

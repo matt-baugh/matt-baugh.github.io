@@ -84,6 +84,49 @@
               </div>
             </div>
           </div>
+
+          <h2 class="extra-heading">Extra</h2>
+
+          <article class="ct-view">
+            <h3>Axial</h3>
+            <div class="cine">
+              <video controls playsinline loop preload="metadata" width="588" height="534">
+                <source src="/assets/secret/axial_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="view-caption">Abdomen to shoulders</p>
+          </article>
+
+          <article class="ct-view">
+            <h3>Coronal</h3>
+            <div class="cine">
+              <video controls playsinline loop preload="metadata" width="590" height="536">
+                <source src="/assets/secret/coronal_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="view-caption">Front to back</p>
+          </article>
+
+          <article class="ct-view">
+            <h3>Sagittal</h3>
+            <div class="cine">
+              <video controls playsinline loop preload="metadata" width="606" height="568">
+                <source src="/assets/secret/sagittal_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </article>
+
+          <article class="ct-view">
+            <h3>Slice grid</h3>
+            <div class="grid-frame">
+              <img
+                src="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png"
+                alt="Montage of axial chest CT slices"
+                width="5120"
+                height="5400"
+              />
+            </div>
+          </article>
         </div>
       </section>
     </main>
@@ -202,6 +245,17 @@
         setStatus(
           "<p>Could not load the interactive CT viewer in this browser.</p>"
         );
+      });
+    </script>
+    <script>
+      document.querySelectorAll(".cine video").forEach((video) => {
+        const jump = () => {
+          if (video.duration && video.currentTime < 0.2) {
+            video.currentTime = Math.min(video.duration * 0.35, 12);
+          }
+        };
+        if (video.readyState >= 1) jump();
+        else video.addEventListener("loadedmetadata", jump, { once: true });
       });
     </script>
   </body>
