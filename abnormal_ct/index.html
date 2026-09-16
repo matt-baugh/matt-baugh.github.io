@@ -60,82 +60,49 @@
           <h2>Views</h2>
           <p class="view-help">
             Axial, coronal and sagittal scrolls through the volume, plus a montage of
-            axial slices. Play a loop, or open the grid at full resolution.
+            axial slices.
           </p>
 
-          <div class="view-tabs" role="tablist" aria-label="CT views">
-            <button type="button" class="view-tab" role="tab" id="tab-axial" aria-controls="panel-axial" aria-selected="true">Axial</button>
-            <button type="button" class="view-tab" role="tab" id="tab-coronal" aria-controls="panel-coronal" aria-selected="false">Coronal</button>
-            <button type="button" class="view-tab" role="tab" id="tab-sagittal" aria-controls="panel-sagittal" aria-selected="false">Sagittal</button>
-            <button type="button" class="view-tab" role="tab" id="tab-grid" aria-controls="panel-grid" aria-selected="false">Slice grid</button>
-          </div>
-
-          <div class="view-panel" role="tabpanel" id="panel-axial" aria-labelledby="tab-axial">
+          <article class="ct-view">
+            <h3>Axial</h3>
             <div class="cine">
-              <video
-                id="video-axial"
-                controls
-                playsinline
-                loop
-                preload="metadata"
-                width="588"
-                height="534"
-              >
+              <video controls playsinline loop preload="metadata" width="588" height="534">
                 <source src="/assets/secret/axial_scroll.mp4" type="video/mp4" />
               </video>
             </div>
-            <p class="view-caption">Axial cine · head to feet</p>
-          </div>
+            <p class="view-caption">Abdomen to shoulders</p>
+          </article>
 
-          <div class="view-panel" role="tabpanel" id="panel-coronal" aria-labelledby="tab-coronal" hidden>
+          <article class="ct-view">
+            <h3>Coronal</h3>
             <div class="cine">
-              <video
-                id="video-coronal"
-                controls
-                playsinline
-                loop
-                preload="metadata"
-                width="590"
-                height="536"
-              >
+              <video controls playsinline loop preload="metadata" width="590" height="536">
                 <source src="/assets/secret/coronal_scroll.mp4" type="video/mp4" />
               </video>
             </div>
-            <p class="view-caption">Coronal cine · posterior to anterior</p>
-          </div>
+            <p class="view-caption">Front to back</p>
+          </article>
 
-          <div class="view-panel" role="tabpanel" id="panel-sagittal" aria-labelledby="tab-sagittal" hidden>
+          <article class="ct-view">
+            <h3>Sagittal</h3>
             <div class="cine">
-              <video
-                id="video-sagittal"
-                controls
-                playsinline
-                loop
-                preload="metadata"
-                width="606"
-                height="568"
-              >
+              <video controls playsinline loop preload="metadata" width="606" height="568">
                 <source src="/assets/secret/sagittal_scroll.mp4" type="video/mp4" />
               </video>
             </div>
-            <p class="view-caption">Sagittal cine · right to left</p>
-          </div>
+          </article>
 
-          <div class="view-panel" role="tabpanel" id="panel-grid" aria-labelledby="tab-grid" hidden>
+          <article class="ct-view">
+            <h3>Slice grid</h3>
             <div class="grid-frame">
-              <a href="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png">
-                <img
-                  src="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png"
-                  alt="Montage of axial chest CT slices from superior to inferior"
-                  width="5120"
-                  height="5400"
-                />
-              </a>
+              <img
+                src="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png"
+                alt="Montage of axial chest CT slices"
+                width="5120"
+                height="5400"
+              />
             </div>
-            <p class="view-caption">
-              Axial slice grid · click the image for full resolution
-            </p>
-          </div>
+          </article>
         </div>
       </section>
 
@@ -161,39 +128,15 @@
     </footer>
 
     <script>
-      const tabs = [...document.querySelectorAll(".view-tab")];
-      const panels = [...document.querySelectorAll(".view-panel")];
-
-      function show(id) {
-        tabs.forEach((tab) => {
-          const on = tab.getAttribute("aria-controls") === id;
-          tab.setAttribute("aria-selected", String(on));
-        });
-        panels.forEach((panel) => {
-          const on = panel.id === id;
-          panel.toggleAttribute("hidden", !on);
-          if (!on) {
-            panel.querySelector("video")?.pause();
+      document.querySelectorAll(".cine video").forEach((video) => {
+        const jump = () => {
+          if (video.duration && video.currentTime < 0.2) {
+            video.currentTime = Math.min(video.duration * 0.35, 12);
           }
-        });
-
-        const video = document.querySelector("#" + id + " video");
-        if (video) {
-          const jump = () => {
-            if (video.duration && video.currentTime < 0.2) {
-              video.currentTime = Math.min(video.duration * 0.35, 12);
-            }
-          };
-          if (video.readyState >= 1) jump();
-          else video.addEventListener("loadedmetadata", jump, { once: true });
-        }
-      }
-
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => show(tab.getAttribute("aria-controls")));
+        };
+        if (video.readyState >= 1) jump();
+        else video.addEventListener("loadedmetadata", jump, { once: true });
       });
-
-      show("panel-axial");
     </script>
   </body>
 </html>
