@@ -12,6 +12,7 @@
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap"
       rel="stylesheet"
@@ -55,47 +56,34 @@
       <section class="section" id="views">
         <div class="wrap">
           <h2>Views</h2>
+          <p class="viewer-hint">
+            Scroll to move through slices, or click to jump. Drag to adjust the
+            window.
+          </p>
 
-          <article class="ct-view">
-            <h3>Axial</h3>
-            <div class="cine">
-              <video controls playsinline loop preload="metadata" width="588" height="534">
-                <source src="/assets/secret/axial_scroll.mp4" type="video/mp4" />
-              </video>
+          <div class="ct-toolbar">
+            <span class="ct-toolbar-label">Window</span>
+            <div class="ct-windows" role="group" aria-label="CT window presets">
+              <button type="button" class="ct-window is-active" data-window="overview">
+                Overview
+              </button>
+              <button type="button" class="ct-window" data-window="lung">Lung</button>
+              <button type="button" class="ct-window" data-window="soft">
+                Soft tissue
+              </button>
+              <button type="button" class="ct-window" data-window="bone">Bone</button>
             </div>
-            <p class="view-caption">Abdomen to shoulders</p>
-          </article>
+          </div>
 
-          <article class="ct-view">
-            <h3>Coronal</h3>
-            <div class="cine">
-              <video controls playsinline loop preload="metadata" width="590" height="536">
-                <source src="/assets/secret/coronal_scroll.mp4" type="video/mp4" />
-              </video>
+          <div class="ct-viewer">
+            <canvas id="ct-canvas" aria-label="Interactive chest CT viewer"></canvas>
+            <div class="ct-status" id="ct-status" role="status">
+              <p>Loading CT volume (about 90&nbsp;MB)…</p>
+              <div class="ct-progress" aria-hidden="true">
+                <span id="ct-progress-bar"></span>
+              </div>
             </div>
-            <p class="view-caption">Front to back</p>
-          </article>
-
-          <article class="ct-view">
-            <h3>Sagittal</h3>
-            <div class="cine">
-              <video controls playsinline loop preload="metadata" width="606" height="568">
-                <source src="/assets/secret/sagittal_scroll.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </article>
-
-          <article class="ct-view">
-            <h3>Slice grid</h3>
-            <div class="grid-frame">
-              <img
-                src="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png"
-                alt="Montage of axial chest CT slices"
-                width="5120"
-                height="5400"
-              />
-            </div>
-          </article>
+          </div>
         </div>
       </section>
     </main>
@@ -106,15 +94,114 @@
       </div>
     </footer>
 
-    <script>
-      document.querySelectorAll(".cine video").forEach((video) => {
-        const jump = () => {
-          if (video.duration && video.currentTime < 0.2) {
-            video.currentTime = Math.min(video.duration * 0.35, 12);
+    <script type="module">
+      import {
+        Niivue,
+        NVImage,
+        SHOW_RENDER,
+        SLICE_TYPE,
+      } from "https://cdn.jsdelivr.net/npm/@niivue/niivue@0.69.0/dist/index.js";
+
+      const NIFTI_URL = "/assets/secret/ctrate_img_train_1_a_1_abnormal_compact.nii.gz";
+      const WINDOWS = {
+        overview: { min: -1000, max: 400 },
+        lung: { min: -1350, max: 150 },
+        soft: { min: -160, max: 240 },
+        bone: { min: -500, max: 1300 },
+      };
+
+      const statusEl = document.getElementById("ct-status");
+      const progressBar = document.getElementById("ct-progress-bar");
+      const windowButtons = document.querySelectorAll(".ct-window");
+
+      const setStatus = (html) => {
+        statusEl.innerHTML = html;
+        statusEl.hidden = false;
+      };
+
+      const applyWindow = (nv, name) => {
+        const win = WINDOWS[name];
+        if (!win || !nv.volumes[0]) return;
+        nv.volumes[0].cal_min = win.min;
+        nv.volumes[0].cal_max = win.max;
+        nv.updateGLVolume();
+        windowButtons.forEach((btn) => {
+          btn.classList.toggle("is-active", btn.dataset.window === name);
+        });
+      };
+
+      const fetchVolume = async (url) => {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Could not fetch volume (${response.status})`);
+        }
+        const total = Number(response.headers.get("content-length")) || 0;
+        if (!response.body) {
+          return response.arrayBuffer();
+        }
+        const reader = response.body.getReader();
+        const chunks = [];
+        let received = 0;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          received += value.length;
+          if (total) {
+            const pct = Math.min(100, Math.round((received / total) * 100));
+            progressBar.style.width = `${pct}%`;
           }
-        };
-        if (video.readyState >= 1) jump();
-        else video.addEventListener("loadedmetadata", jump, { once: true });
+        }
+        const bytes = new Uint8Array(received);
+        let offset = 0;
+        for (const chunk of chunks) {
+          bytes.set(chunk, offset);
+          offset += chunk.length;
+        }
+        return bytes.buffer;
+      };
+
+      const boot = async () => {
+        const nv = new Niivue({
+          backColor: [0.05, 0.05, 0.05, 1],
+          show3Dcrosshair: true,
+          multiplanarShowRender: SHOW_RENDER.NEVER,
+          multiplanarEqualSize: true,
+          isColorbar: false,
+          isOrientCube: false,
+        });
+        nv.opts.multiplanarShowRender = SHOW_RENDER.NEVER;
+        await nv.attachTo("ct-canvas");
+        nv.setSliceType(nv.sliceTypeMultiplanar);
+        nv.setCustomLayout([
+          { sliceType: SLICE_TYPE.AXIAL, position: [0, 0, 0.62, 1] },
+          { sliceType: SLICE_TYPE.CORONAL, position: [0.62, 0, 0.38, 0.5] },
+          { sliceType: SLICE_TYPE.SAGITTAL, position: [0.62, 0.5, 0.38, 0.5] },
+        ]);
+
+        const buffer = await fetchVolume(NIFTI_URL);
+        const image = await NVImage.loadFromUrl({
+          url: NIFTI_URL,
+          name: "chest_ct.nii.gz",
+          buffer,
+          colormap: "gray",
+          cal_min: WINDOWS.overview.min,
+          cal_max: WINDOWS.overview.max,
+        });
+        nv.addVolume(image);
+        applyWindow(nv, "overview");
+        statusEl.hidden = true;
+
+        windowButtons.forEach((btn) => {
+          btn.addEventListener("click", () => applyWindow(nv, btn.dataset.window));
+        });
+      };
+
+      boot().catch((err) => {
+        console.error(err);
+        setStatus(
+          "<p>Could not load the interactive CT viewer in this browser.</p>"
+        );
       });
     </script>
   </body>
