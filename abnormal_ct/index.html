@@ -169,7 +169,20 @@
       aria-modal="true"
       aria-labelledby="congrats-title"
     >
-      <p id="congrats-title">Congratulations, you found it!</p>
+      <div class="congrats-card">
+        <p id="congrats-title">Congratulations, you found it!</p>
+        <video
+          id="reveal-video"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          width="1188"
+          height="728"
+        >
+          <source src="/assets/secret/reveal.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
     <footer class="site-footer">
@@ -361,18 +374,27 @@
       const input = document.getElementById("answer-input");
       const wrong = document.getElementById("answer-wrong");
       const congrats = document.getElementById("congrats");
+      const reveal = document.getElementById("reveal-video");
 
       const closeCongrats = () => {
         congrats.hidden = true;
+        reveal.pause();
         input.focus();
+      };
+
+      const openCongrats = () => {
+        wrong.hidden = true;
+        congrats.hidden = false;
+        reveal.currentTime = 0;
+        const play = reveal.play();
+        if (play && typeof play.catch === "function") play.catch(() => {});
+        congrats.focus();
       };
 
       form.addEventListener("submit", (event) => {
         event.preventDefault();
         if (isAcceptedAnswer(input.value)) {
-          wrong.hidden = true;
-          congrats.hidden = false;
-          congrats.focus();
+          openCongrats();
         } else {
           wrong.hidden = false;
         }
@@ -382,7 +404,9 @@
         wrong.hidden = true;
       });
 
-      congrats.addEventListener("click", closeCongrats);
+      congrats.addEventListener("click", (event) => {
+        if (event.target === congrats) closeCongrats();
+      });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !congrats.hidden) closeCongrats();
       });
