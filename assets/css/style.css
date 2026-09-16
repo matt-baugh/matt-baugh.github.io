@@ -502,6 +502,112 @@ a:hover {
   }
 }
 
+.secret-page {
+  --wrap: 54rem;
+}
+
+.secret-hero {
+  padding-bottom: 0.4rem;
+}
+
+.finding-pills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.finding-pills li {
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #f7f4ee;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.view-help,
+.view-caption {
+  color: var(--muted);
+}
+
+.view-caption {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+}
+
+.view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.1rem 0 1rem;
+}
+
+.view-tab {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  color: var(--ink);
+  padding: 0.32rem 0.85rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.view-tab:hover,
+.view-tab[aria-selected="true"] {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.view-panel[hidden] {
+  display: none;
+}
+
+.cine {
+  display: grid;
+  place-items: center;
+  padding: 0.9rem;
+  background: #111;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.cine video {
+  width: min(100%, 36rem);
+  height: auto;
+  background: #000;
+}
+
+.grid-frame {
+  overflow: auto;
+  max-height: min(78vh, 52rem);
+  background: #111;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.grid-frame img {
+  width: 100%;
+  height: auto;
+}
+
+.secret-question {
+  padding-bottom: 3.5rem;
+}
+
+.secret-question p:last-child {
+  margin-bottom: 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

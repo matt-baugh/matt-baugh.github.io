@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abnormal chest CT</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="A chest CT case with several identified findings, and one separate problem to spot."
+    />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body class="secret-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="/">Matthew Baugh</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero secret-hero">
+        <div class="wrap">
+          <p class="eyebrow">Chest CT</p>
+          <h1>An abnormal scan</h1>
+          <p class="lede">
+            Review the cine loops and the axial grid. Several findings are already listed.
+            One separate problem is not.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="findings">
+        <div class="wrap">
+          <h2>Identified findings</h2>
+          <p>
+            This non-contrast chest CT has the following reported abnormalities:
+          </p>
+          <ul class="finding-pills">
+            <li>Arterial wall calcification</li>
+            <li>Atelectasis</li>
+            <li>Lung opacity</li>
+            <li>Peribronchial thickening</li>
+            <li>Consolidation</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="views">
+        <div class="wrap">
+          <h2>Views</h2>
+          <p class="view-help">
+            Axial, coronal and sagittal scrolls through the volume, plus a montage of
+            axial slices. Play a loop, or open the grid at full resolution.
+          </p>
+
+          <div class="view-tabs" role="tablist" aria-label="CT views">
+            <button type="button" class="view-tab" role="tab" id="tab-axial" aria-controls="panel-axial" aria-selected="true">Axial</button>
+            <button type="button" class="view-tab" role="tab" id="tab-coronal" aria-controls="panel-coronal" aria-selected="false">Coronal</button>
+            <button type="button" class="view-tab" role="tab" id="tab-sagittal" aria-controls="panel-sagittal" aria-selected="false">Sagittal</button>
+            <button type="button" class="view-tab" role="tab" id="tab-grid" aria-controls="panel-grid" aria-selected="false">Slice grid</button>
+          </div>
+
+          <div class="view-panel" role="tabpanel" id="panel-axial" aria-labelledby="tab-axial">
+            <div class="cine">
+              <video
+                id="video-axial"
+                controls
+                playsinline
+                loop
+                preload="metadata"
+                width="588"
+                height="534"
+              >
+                <source src="/assets/secret/axial_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="view-caption">Axial cine · head to feet</p>
+          </div>
+
+          <div class="view-panel" role="tabpanel" id="panel-coronal" aria-labelledby="tab-coronal" hidden>
+            <div class="cine">
+              <video
+                id="video-coronal"
+                controls
+                playsinline
+                loop
+                preload="metadata"
+                width="590"
+                height="536"
+              >
+                <source src="/assets/secret/coronal_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="view-caption">Coronal cine · posterior to anterior</p>
+          </div>
+
+          <div class="view-panel" role="tabpanel" id="panel-sagittal" aria-labelledby="tab-sagittal" hidden>
+            <div class="cine">
+              <video
+                id="video-sagittal"
+                controls
+                playsinline
+                loop
+                preload="metadata"
+                width="606"
+                height="568"
+              >
+                <source src="/assets/secret/sagittal_scroll.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="view-caption">Sagittal cine · right to left</p>
+          </div>
+
+          <div class="view-panel" role="tabpanel" id="panel-grid" aria-labelledby="tab-grid" hidden>
+            <div class="grid-frame">
+              <a href="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png">
+                <img
+                  src="/assets/secret/ctrate_img_train_1_a_1_abnormal_axial_grid_512.png"
+                  alt="Montage of axial chest CT slices from superior to inferior"
+                  width="5120"
+                  height="5400"
+                />
+              </a>
+            </div>
+            <p class="view-caption">
+              Axial slice grid · click the image for full resolution
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section secret-question" id="question">
+        <div class="wrap">
+          <h2>A separate problem</h2>
+          <p>
+            The five findings above are already identified. There is another problem
+            with this patient that is not on that list — including an extra
+            alteration in the scan.
+          </p>
+          <p>
+            Look through the videos and the slice grid. What else is going on?
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Matthew Baugh · London</p>
+      </div>
+    </footer>
+
+    <script>
+      const tabs = [...document.querySelectorAll(".view-tab")];
+      const panels = [...document.querySelectorAll(".view-panel")];
+
+      function show(id) {
+        tabs.forEach((tab) => {
+          const on = tab.getAttribute("aria-controls") === id;
+          tab.setAttribute("aria-selected", String(on));
+        });
+        panels.forEach((panel) => {
+          const on = panel.id === id;
+          panel.toggleAttribute("hidden", !on);
+          if (!on) {
+            panel.querySelector("video")?.pause();
+          }
+        });
+
+        const video = document.querySelector("#" + id + " video");
+        if (video) {
+          const jump = () => {
+            if (video.duration && video.currentTime < 0.2) {
+              video.currentTime = Math.min(video.duration * 0.35, 12);
+            }
+          };
+          if (video.readyState >= 1) jump();
+          else video.addEventListener("loadedmetadata", jump, { once: true });
+        }
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => show(tab.getAttribute("aria-controls")));
+      });
+
+      show("panel-axial");
+    </script>
+  </body>
+</html>
