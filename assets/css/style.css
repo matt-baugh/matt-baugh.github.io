@@ -717,7 +717,11 @@ a:hover {
 }
 
 .hint {
-  margin: 0 0 1.6rem;
+  margin: 0 0 1rem;
+}
+
+.hint:last-of-type {
+  margin-bottom: 1.6rem;
 }
 
 .hint summary {
