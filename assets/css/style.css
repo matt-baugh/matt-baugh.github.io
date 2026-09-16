@@ -503,11 +503,17 @@ a:hover {
 }
 
 .secret-page {
-  --wrap: 54rem;
+  --wrap: 62rem;
 }
 
 .secret-hero {
-  padding-bottom: 0.4rem;
+  padding-top: 2.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.secret-page .section {
+  padding-top: 0.7rem;
+  padding-bottom: 1.2rem;
 }
 
 .finding-pills {
@@ -532,51 +538,115 @@ a:hover {
   margin: 0 0 1rem;
 }
 
-.view-caption {
-  margin: 0.55rem 0 0;
+.viewer-hint {
+  margin: 0 0 0.85rem;
   color: var(--muted);
-  font-size: 0.9rem;
-  text-align: center;
+  font-size: 0.95rem;
 }
 
-.ct-view {
-  margin: 1.6rem 0 0;
+.ct-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+  margin: 0 0 0.75rem;
 }
 
-.secret-page .ct-view h3 {
-  margin: 0 0 0.7rem;
+.ct-toolbar-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.cine {
+.ct-windows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ct-window {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.22rem 0.72rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ct-window:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.ct-window.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #f7f4ee;
+}
+
+.ct-viewer {
+  position: relative;
+  background: #0d0d0d;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  height: min(62vh, 40rem);
+  min-height: 20rem;
+}
+
+#ct-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ct-status {
+  position: absolute;
+  inset: 0;
   display: grid;
   place-items: center;
-  padding: 0.9rem;
+  align-content: center;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  color: #d8d4cc;
   background: #111;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  text-align: center;
+  z-index: 1;
 }
 
-.cine video {
-  width: min(100%, 36rem);
-  height: auto;
-  background: #000;
+.ct-status[hidden] {
+  display: none;
 }
 
-.grid-frame {
-  display: block;
-  width: 100%;
-  max-width: 100%;
+.ct-status p {
+  margin: 0;
+}
+
+.ct-progress {
+  width: min(18rem, 70%);
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #2a2a2a;
   overflow: hidden;
-  background: #111;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
-.grid-frame img {
+.ct-progress span {
   display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+  width: 8%;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.15s linear;
+}
+
+@media (max-width: 720px) {
+  .ct-viewer {
+    height: min(92vw, 34rem);
+  }
 }
 
 #views {
