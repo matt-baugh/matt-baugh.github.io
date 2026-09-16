@@ -129,7 +129,48 @@
           </article>
         </div>
       </section>
+
+      <section class="section" id="solve">
+        <div class="wrap">
+          <details class="hint">
+            <summary>Hint:</summary>
+            <p>
+              The problem is a synthetic change I made by editing the image
+            </p>
+          </details>
+
+          <form class="answer-form" id="answer-form">
+            <label class="answer-label" for="answer-input">Answer</label>
+            <div class="answer-row">
+              <input
+                id="answer-input"
+                name="answer"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                aria-describedby="answer-wrong"
+              />
+              <button type="submit" class="btn answer-submit">Submit</button>
+            </div>
+            <p class="answer-wrong" id="answer-wrong" hidden>
+              Sorry, that's not the answer I'm looking for
+            </p>
+          </form>
+        </div>
+      </section>
     </main>
+
+    <div
+      class="congrats"
+      id="congrats"
+      hidden
+      tabindex="-1"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="congrats-title"
+    >
+      <p id="congrats-title">Congratulations, you found it!</p>
+    </div>
 
     <footer class="site-footer">
       <div class="wrap">
@@ -256,6 +297,94 @@
         };
         if (video.readyState >= 1) jump();
         else video.addEventListener("loadedmetadata", jump, { once: true });
+      });
+
+      const normalizeAnswer = (value) =>
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const isAcceptedAnswer = (value) => {
+        const text = normalizeAnswer(value);
+        if (!text) return false;
+
+        const exact = new Set([
+          "no aorta",
+          "aorta missing",
+          "aorta gone",
+          "missing aorta",
+          "gone aorta",
+          "absent aorta",
+          "aorta absent",
+          "aorta is missing",
+          "aorta is gone",
+          "the aorta is missing",
+          "the aorta is gone",
+          "there is no aorta",
+          "missing the aorta",
+          "no aorta present",
+          "aorta removed",
+          "removed aorta",
+          "aorta deleted",
+          "deleted aorta",
+          "without aorta",
+          "without an aorta",
+          "no aortas",
+          "aorta is absent",
+          "the aorta is absent",
+          "aorta was removed",
+          "the aorta was removed",
+          "aorta isnt there",
+          "aorta is not there",
+          "there isnt an aorta",
+          "there is no aortas",
+        ]);
+        if (exact.has(text)) return true;
+
+        if (/\bno aortas?\b/.test(text)) return true;
+        if (/\b(missing|gone|absent|removed|deleted)\s+(the\s+)?aortas?\b/.test(text)) {
+          return true;
+        }
+        if (/\baortas?\s+(is|was|are|were)\s+(missing|gone|absent|removed|deleted)\b/.test(text)) {
+          return true;
+        }
+        if (/\bwithout\s+(an?\s+)?aortas?\b/.test(text)) return true;
+        if (/\baortas?\s+(isnt|is not)\s+(there|present|visible)\b/.test(text)) {
+          return true;
+        }
+        return false;
+      };
+
+      const form = document.getElementById("answer-form");
+      const input = document.getElementById("answer-input");
+      const wrong = document.getElementById("answer-wrong");
+      const congrats = document.getElementById("congrats");
+
+      const closeCongrats = () => {
+        congrats.hidden = true;
+        input.focus();
+      };
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (isAcceptedAnswer(input.value)) {
+          wrong.hidden = true;
+          congrats.hidden = false;
+          congrats.focus();
+        } else {
+          wrong.hidden = false;
+        }
+      });
+
+      input.addEventListener("input", () => {
+        wrong.hidden = true;
+      });
+
+      congrats.addEventListener("click", closeCongrats);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !congrats.hidden) closeCongrats();
       });
     </script>
   </body>
