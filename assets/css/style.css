@@ -512,7 +512,7 @@ a:hover {
 
 .finding-pills {
   list-style: none;
-  margin: 0;
+  margin: 0 0 1rem;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -528,7 +528,10 @@ a:hover {
   font-weight: 600;
 }
 
-.view-help,
+.spot-it {
+  margin: 0 0 1rem;
+}
+
 .view-caption {
   color: var(--muted);
 }
@@ -579,15 +582,8 @@ a:hover {
   height: auto;
 }
 
-.secret-question {
+#views {
   padding-bottom: 3.5rem;
-}
-
-.secret-question p:last-child {
-  margin-bottom: 0;
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-style: italic;
 }
 
 @media (prefers-reduced-motion: reduce) {
