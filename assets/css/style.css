@@ -533,11 +533,8 @@ a:hover {
 }
 
 .view-caption {
-  color: var(--muted);
-}
-
-.view-caption {
   margin: 0.55rem 0 0;
+  color: var(--muted);
   font-size: 0.9rem;
   text-align: center;
 }
